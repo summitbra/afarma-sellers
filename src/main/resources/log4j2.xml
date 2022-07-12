@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="property.servico.nome">TEMPLATE
+        </Property>
+        <Property name="property.servico.instancia">$${env:HOSTNAME:-}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="JsonOutput" target="SYSTEM_OUT">
+            <JsonLayout complete="false" includeStacktrace="false" compact="true" properties="false" eventEol="true">
+                <KeyValuePair key="teste" value="$${ctx:teste:-}"/>
+            </JsonLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="Warn">
+            <AppenderRef ref="JsonOutput" level="INFO" />
+            <AppenderRef ref="JsonOutput" level="WARN" />
+            <AppenderRef ref="JsonOutput" level="ERROR" />
+            <AppenderRef ref="JsonOutput" level="ANALYTICS" />
+        </Root>
+    </Loggers>
+</Configuration>
