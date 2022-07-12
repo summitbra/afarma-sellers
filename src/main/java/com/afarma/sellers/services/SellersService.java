@@ -36,7 +36,7 @@ public class SellersService {
             throw new InternalServerErrorException("Erro inesperado no momento de salvar.", exception);
         }
 
-        return ResponseEntity.status(200).body("Vendedor criado com sucesso");
+        return ResponseEntity.status(200).body("Cliente criado com sucesso");
     }
 
     public ResponseEntity<Object> inactiveSeller(Long id){
@@ -47,7 +47,7 @@ public class SellersService {
             throw new InternalServerErrorException("Erro inesperado no momento do update", exception);
         }
 
-        return ResponseEntity.status(200).body("O vendedor foi inativado com sucesso");
+        return ResponseEntity.status(200).body("O cliente foi inativado com sucesso");
 
     }
 
@@ -59,7 +59,7 @@ public class SellersService {
             throw new InternalServerErrorException("Erro inesperado no momento do update", exception);
         }
 
-        return ResponseEntity.status(200).body("O vendedor foi ativado com sucesso");
+        return ResponseEntity.status(200).body("O cliente foi ativado com sucesso");
 
     }
 
