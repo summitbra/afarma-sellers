@@ -1,4 +1,4 @@
-package com.afarma.sellers.Dtos;
+package com.afarma.sellers.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class SellersResponseDTO implements Serializable {
+public class SellersResponse implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,6 @@ public class SellersResponseDTO implements Serializable {
     @Column(name = "active")
     private Boolean active;
 
-    @JsonProperty("email")
-    @Column(name = "email")
-    private String email;
-
     @JsonProperty("price")
     @Column(name = "price")
     private Double price;
@@ -49,17 +45,15 @@ public class SellersResponseDTO implements Serializable {
     @Column(name = "availability")
     private String availability;
 
-    public SellersResponseDTO() {
+    public SellersResponse() {
     }
 
-    public SellersResponseDTO(Long id, String tradingName, String companyName, String stock, Boolean active,
-                              String email, Double price, Date dateRegister, Long sellerId, String availability) {
+    public SellersResponse(Long id, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability) {
         this.id = id;
         this.tradingName = tradingName;
         this.companyName = companyName;
         this.stock = stock;
         this.active = active;
-        this.email = email;
         this.price = price;
         this.dateRegister = dateRegister;
         this.sellerId = sellerId;
@@ -104,14 +98,6 @@ public class SellersResponseDTO implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Double getPrice() {
