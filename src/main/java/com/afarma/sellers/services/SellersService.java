@@ -1,6 +1,7 @@
 package com.afarma.sellers.services;
 
 import com.afarma.sellers.Dtos.ResponseError;
+import com.afarma.sellers.Dtos.SellersResponseDTO;
 import com.afarma.sellers.config.LoggerConfig;
 import com.afarma.sellers.exceptions.InternalServerErrorException;
 import com.afarma.sellers.models.Sellers;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
 @Service
@@ -66,5 +69,10 @@ public class SellersService {
     public Page<Sellers> searchActiveSellers(Pageable pageable){
 
         return sellersRepository.findActiveSellers(pageable);
+    }
+
+    public List<SellersResponseDTO> searchForServicesAndProducts(){
+
+        return sellersRepository.findProductsAndSellers();
     }
 }

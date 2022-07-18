@@ -1,5 +1,6 @@
 package com.afarma.sellers.controller;
 
+import com.afarma.sellers.Dtos.SellersResponseDTO;
 import com.afarma.sellers.models.Sellers;
 import com.afarma.sellers.services.SellersService;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -40,5 +43,11 @@ public class SellersController {
     public Page<Sellers> activeSellers(@PageableDefault(direction = Sort.Direction.DESC) Pageable pageable) {
         return sellersService.searchActiveSellers(pageable);
     }
+
+    @GetMapping("/servicesProducts")
+    public List<SellersResponseDTO> searchForServicesAndProducts() {
+        return sellersService.searchForServicesAndProducts();
+    }
+
 
 }
