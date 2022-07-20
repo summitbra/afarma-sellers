@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -46,7 +47,8 @@ public class SellersController {
     }
 
     @GetMapping("/services-products")
-    public Page<SellersResponse> searchForServicesAndProducts(@PageableDefault(direction = Sort.Direction.DESC) Pageable pageable,  @RequestBody SellersDTO sellersDTO) {
+    public Page<SellersResponse> searchForServicesAndProducts(@PageableDefault(direction = Sort.Direction.DESC) Pageable pageable,  @RequestHeader Map<String, String> header) {
+        SellersDTO sellersDTO = new SellersDTO(header);
         return sellersService.searchForServicesAndProducts(pageable,sellersDTO);
     }
 

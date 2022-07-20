@@ -9,9 +9,8 @@ import java.util.Date;
 @Entity
 public class SellersResponse implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private SellersResponseId sellersResponseId;
 
     @JsonProperty("trading_name")
     @Column(name = "trading_name")
@@ -52,8 +51,8 @@ public class SellersResponse implements Serializable {
     public SellersResponse() {
     }
 
-    public SellersResponse(Long id, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description) {
-        this.id = id;
+    public SellersResponse(SellersResponseId sellersResponseId, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description) {
+        this.sellersResponseId = sellersResponseId;
         this.tradingName = tradingName;
         this.companyName = companyName;
         this.stock = stock;
@@ -65,6 +64,14 @@ public class SellersResponse implements Serializable {
         this.description = description;
     }
 
+    public SellersResponseId getSellersResponseId() {
+        return sellersResponseId;
+    }
+
+    public void setSellersResponseId(SellersResponseId sellersResponseId) {
+        this.sellersResponseId = sellersResponseId;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -73,13 +80,6 @@ public class SellersResponse implements Serializable {
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTradingName() {
         return tradingName;
