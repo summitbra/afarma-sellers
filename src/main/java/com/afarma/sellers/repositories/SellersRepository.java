@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface SellersRepository extends JpaRepository<Sellers, Long> {
@@ -19,14 +18,12 @@ public interface SellersRepository extends JpaRepository<Sellers, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE " +
-            "sellers SET situation = false WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE sellers SET situation = false WHERE id = :id", nativeQuery = true)
     void updateSituation(@Param("id")Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE " +
-            "sellers SET status = true WHERE id = :id", nativeQuery = true)
+    @Query(value = "UPDATE sellers SET status = true WHERE id = :id", nativeQuery = true)
     void updateStatus(@Param("id")Long id);
 
     @Query(value = "SELECT * FROM sellers WHERE status = FALSE AND situation = TRUE", nativeQuery = true)

@@ -17,8 +17,8 @@ public class SellersResponse implements Serializable {
     @Column(name = "trading_name")
     private String tradingName;
 
-    @JsonProperty("description")
-    @Column(name = "description")
+    @JsonProperty("company_name")
+    @Column(name = "company_name")
     private String companyName;
 
     @JsonProperty("stock")
@@ -45,10 +45,14 @@ public class SellersResponse implements Serializable {
     @Column(name = "availability")
     private String availability;
 
+    @JsonProperty("description")
+    @Column(name = "description", updatable = false, insertable = false)
+    private String description;
+
     public SellersResponse() {
     }
 
-    public SellersResponse(Long id, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability) {
+    public SellersResponse(Long id, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description) {
         this.id = id;
         this.tradingName = tradingName;
         this.companyName = companyName;
@@ -58,6 +62,15 @@ public class SellersResponse implements Serializable {
         this.dateRegister = dateRegister;
         this.sellerId = sellerId;
         this.availability = availability;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {
@@ -131,4 +144,5 @@ public class SellersResponse implements Serializable {
     public void setAvailability(String availability) {
         this.availability = availability;
     }
+
 }

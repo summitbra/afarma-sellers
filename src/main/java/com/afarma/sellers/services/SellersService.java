@@ -4,8 +4,8 @@ import com.afarma.sellers.Dtos.ResponseError;
 import com.afarma.sellers.config.LoggerConfig;
 import com.afarma.sellers.exceptions.InternalServerErrorException;
 import com.afarma.sellers.models.Sellers;
+import com.afarma.sellers.models.SellersDTO;
 import com.afarma.sellers.models.SellersResponse;
-import com.afarma.sellers.repositories.HistoricDAO;
 import com.afarma.sellers.repositories.SellersResponseRepository;
 import com.afarma.sellers.repositories.SellersRepository;
 import org.springframework.http.HttpStatus;
@@ -19,12 +19,10 @@ import org.springframework.data.domain.Pageable;
 public class SellersService {
 
     private final SellersRepository sellersRepository;
-    private final HistoricDAO historicDAO;
     private final SellersResponseRepository sellersResponseRepository;
 
-    public SellersService(SellersRepository sellersRepository, HistoricDAO historicDAO, SellersResponseRepository sellersResponseRepository) {
+    public SellersService(SellersRepository sellersRepository,SellersResponseRepository sellersResponseRepository) {
         this.sellersRepository = sellersRepository;
-        this.historicDAO = historicDAO;
         this.sellersResponseRepository = sellersResponseRepository;
     }
 
@@ -62,17 +60,16 @@ public class SellersService {
             LoggerConfig.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
             throw new InternalServerErrorException("Erro inesperado no momento do update", exception);
         }
-
         return ResponseEntity.status(200).body("O cliente foi ativado com sucesso");
-
     }
 
     public Page<Sellers> searchActiveSellers(Pageable pageable){
-
         return sellersRepository.findActiveSellers(pageable);
     }
 
-    public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable){
-        return sellersResponseRepository.findProductsAndSellers(pageable);
+    public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable, SellersDTO sellersDTO){
+
+        return sellersResponseRepository.findProductsAndSellers(pageable,sellersDTO.getDescription(),sellersDTO.getActive(),
+                sellersDTO.getDateIni(),sellersDTO.getDateFin());
     }
 }

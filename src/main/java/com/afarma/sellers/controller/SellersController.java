@@ -1,6 +1,7 @@
 package com.afarma.sellers.controller;
 
 import com.afarma.sellers.models.Sellers;
+import com.afarma.sellers.models.SellersDTO;
 import com.afarma.sellers.models.SellersResponse;
 import com.afarma.sellers.services.SellersService;
 import org.springframework.data.domain.Page;
@@ -44,9 +45,9 @@ public class SellersController {
         return sellersService.searchActiveSellers(pageable);
     }
 
-    @GetMapping("/servicesProducts")
-    public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable) {
-        return sellersService.searchForServicesAndProducts(pageable);
+    @GetMapping("/services-products")
+    public Page<SellersResponse> searchForServicesAndProducts(@PageableDefault(direction = Sort.Direction.DESC) Pageable pageable,  @RequestBody SellersDTO sellersDTO) {
+        return sellersService.searchForServicesAndProducts(pageable,sellersDTO);
     }
 
 
