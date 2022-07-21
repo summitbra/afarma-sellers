@@ -37,7 +37,7 @@ public class SellersDTO implements Serializable {
         if (header.get("dateini").equals("null"))
             this.dateIni = null;
         else
-            this.dateIni = header.get("datefin");
+            this.dateIni = header.get("dateini");
         if (header.get("datefin").equals("null"))
             this.dateFin = null;
         else

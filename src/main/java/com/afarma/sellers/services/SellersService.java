@@ -69,7 +69,10 @@ public class SellersService {
 
     public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable, SellersDTO sellersDTO){
 
-        return sellersResponseRepository.findProductsAndSellers(pageable,sellersDTO.getDescription(),sellersDTO.getActive(),
-                sellersDTO.getDateIni(),sellersDTO.getDateFin());
+        Page<SellersResponse> productsAndSellers = sellersResponseRepository.findProductsAndSellers(pageable, sellersDTO.getDescription(), sellersDTO.getActive(),
+                sellersDTO.getDateIni(), sellersDTO.getDateFin());
+
+        System.out.println(productsAndSellers.getContent());
+        return  productsAndSellers;
     }
 }
