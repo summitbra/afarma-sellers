@@ -69,10 +69,12 @@ public class SellersService {
 
     public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable, SellersDTO sellersDTO){
 
-        Page<SellersResponse> productsAndSellers = sellersResponseRepository.findProductsAndSellers(pageable, sellersDTO.getDescription(), sellersDTO.getActive(),
-                sellersDTO.getDateIni(), sellersDTO.getDateFin());
-
-        System.out.println(productsAndSellers.getContent());
-        return  productsAndSellers;
+        if (sellersDTO.getActive() == null || sellersDTO.getActive() == true )
+            return sellersResponseRepository.findProductsAndSellers(pageable,sellersDTO.getDescription(),sellersDTO.getActive(),
+                    sellersDTO.getDateIni(),sellersDTO.getDateFin());
+        else {
+            return sellersResponseRepository.findProductsAndSellersFalse(pageable,sellersDTO.getDescription(),
+                    sellersDTO.getDateIni(),sellersDTO.getDateFin());
+        }
     }
 }
