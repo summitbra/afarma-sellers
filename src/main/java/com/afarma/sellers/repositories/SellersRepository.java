@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface SellersRepository extends JpaRepository<Sellers, Long> {
@@ -29,4 +30,29 @@ public interface SellersRepository extends JpaRepository<Sellers, Long> {
     @Query(value = "SELECT * FROM sellers WHERE status = FALSE AND situation = TRUE", nativeQuery = true)
     Page<Sellers> findActiveSellers(@Param("pageable") Pageable pageable);
 
+    @Query(value = "SELECT active from `afarma-sellers`.products WHERE product_id = ?1", nativeQuery = true)
+    Boolean findProducts(@Param("?1")Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `afarma-sellers`.products p SET active = false WHERE product_id = ?1", nativeQuery = true)
+    Integer updateStatusFalseProduct(@Param("?1")Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `afarma-sellers`.products p SET active = true WHERE product_id = ?1", nativeQuery = true)
+    Integer updateStatusTrueProduct(@Param("?1")Long id);
+
+    @Query(value = "SELECT active from `afarma-sellers`.services WHERE service_id = ?1", nativeQuery = true)
+    Boolean findServices(@Param("?1")Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `afarma-sellers`.services s SET active = false WHERE service_id  = ?1", nativeQuery = true)
+    Integer updateStatusFalseService(@Param("?1")Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `afarma-sellers`.services s SET active = true WHERE service_id  = ?1", nativeQuery = true)
+    Integer updateStatusTrueService(@Param("?1")Long id);
 }

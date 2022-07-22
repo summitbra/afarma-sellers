@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+
 
 @Service
 public class SellersService {
@@ -76,5 +80,33 @@ public class SellersService {
             return sellersResponseRepository.findProductsAndSellersFalse(pageable,sellersDTO.getDescription(),
                     sellersDTO.getDateIni(),sellersDTO.getDateFin());
         }
+    }
+
+    public void activateProducts(String type, Long productId){
+
+        try {
+
+        if(type.equals("PRO")){
+            Boolean statusProduct = sellersRepository.findProducts(productId);
+            if(statusProduct.equals(true)){
+                sellersRepository.updateStatusFalseProduct(productId);
+            }else {
+                sellersRepository.updateStatusTrueProduct(productId);
+            }
+        }
+        if (type.equals("SER")){
+            Boolean statusService = sellersRepository.findServices(productId);
+            if(statusService.equals(true)){
+                sellersRepository.updateStatusFalseService(productId);
+            }else {
+                sellersRepository.updateStatusTrueService(productId);
+            }
+        }
+
+        }catch (Exception exception){
+            LoggerConfig.error(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
+            throw new InternalServerErrorException("Erro inesperado no momento do update", exception);
+        }
+        ResponseEntity.status(200);
     }
 }
