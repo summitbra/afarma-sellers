@@ -48,10 +48,14 @@ public class SellersResponse implements Serializable {
     @Column(name = "description", updatable = false, insertable = false)
     private String description;
 
+    @JsonProperty("type")
+    @Column(name = "type", updatable = false, insertable = false)
+    private String type;
+
     public SellersResponse() {
     }
 
-    public SellersResponse(SellersResponseId sellersResponseId, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description) {
+    public SellersResponse(SellersResponseId sellersResponseId, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description, String type) {
         this.sellersResponseId = sellersResponseId;
         this.tradingName = tradingName;
         this.companyName = companyName;
@@ -62,6 +66,7 @@ public class SellersResponse implements Serializable {
         this.sellerId = sellerId;
         this.availability = availability;
         this.description = description;
+        this.type = type;
     }
 
     public SellersResponseId getSellersResponseId() {
@@ -145,4 +150,11 @@ public class SellersResponse implements Serializable {
         this.availability = availability;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
