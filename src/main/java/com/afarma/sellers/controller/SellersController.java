@@ -52,5 +52,8 @@ public class SellersController {
         return sellersService.searchForServicesAndProducts(pageable,sellersDTO);
     }
 
-
+    @PutMapping("/active-products/{type}/{productId}")
+    public void activateProducts(@PathVariable String type, @PathVariable Long productId) {
+        sellersService.activateProducts(type, productId);
+    }
 }
