@@ -52,10 +52,22 @@ public class SellersResponse implements Serializable {
     @Column(name = "type", updatable = false, insertable = false)
     private String type;
 
+    @JsonProperty("unit")
+    @Column(name = "unidade_medida", updatable = false, insertable = false)
+    private String unit;
+
+    @JsonProperty("details")
+    @Column(name = "detalhes", updatable = false, insertable = false)
+    private String details;
+
+    @JsonProperty("imageUrl")
+    @Column(name = "url_imagem", updatable = false, insertable = false)
+    private String imageUrl;
+
     public SellersResponse() {
     }
 
-    public SellersResponse(SellersResponseId sellersResponseId, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description, String type) {
+    public SellersResponse(SellersResponseId sellersResponseId, String tradingName, String companyName, String stock, Boolean active, Double price, Date dateRegister, Long sellerId, String availability, String description, String type, String unit, String details, String imageUrl) {
         this.sellersResponseId = sellersResponseId;
         this.tradingName = tradingName;
         this.companyName = companyName;
@@ -67,6 +79,9 @@ public class SellersResponse implements Serializable {
         this.availability = availability;
         this.description = description;
         this.type = type;
+        this.unit = unit;
+        this.details = details;
+        this.imageUrl = imageUrl;
     }
 
     public SellersResponseId getSellersResponseId() {
@@ -156,5 +171,29 @@ public class SellersResponse implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
