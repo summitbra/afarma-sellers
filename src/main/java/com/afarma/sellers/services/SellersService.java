@@ -74,11 +74,20 @@ public class SellersService {
     public Page<SellersResponse> searchForServicesAndProducts(Pageable pageable, SellersDTO sellersDTO){
 
         if (sellersDTO.getActive() == null || sellersDTO.getActive() == true )
-            return sellersResponseRepository.findProductsAndSellers(pageable,sellersDTO.getDescription(),sellersDTO.getActive(),
-                    sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            if(!sellersDTO.getDescription().isEmpty()){
+                return sellersResponseRepository.findProductsAndSellers(pageable,sellersDTO.getDescription().toUpperCase(),sellersDTO.getActive(),
+                        sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            }else{
+                return sellersResponseRepository.findProductsAndSellersWithoutLike(pageable,sellersDTO.getActive(),
+                        sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            }
         else {
-            return sellersResponseRepository.findProductsAndSellersFalse(pageable,sellersDTO.getDescription(),
-                    sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            if(!sellersDTO.getDescription().isEmpty()){
+                return sellersResponseRepository.findProductsAndSellersFalse(pageable,sellersDTO.getDescription().toUpperCase(),
+                        sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            }else{
+                return sellersResponseRepository.findProductsAndSellersWithoutLikeFalse(pageable,sellersDTO.getDateIni(),sellersDTO.getDateFin());
+            }
         }
     }
 
